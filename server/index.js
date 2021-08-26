@@ -1,6 +1,7 @@
 import express from 'express';
-import { isMaster } from 'cluster';
+// import cluster from 'cluster';
 import bodyParser from 'body-parser';
+// import os from 'os';
 
 import configureDb from './configure/configureDb.js';
 import { scoreAnswers, normalizeScores } from './lib/scoreAnswers.js';
@@ -12,14 +13,24 @@ import QuestionAnswers from './models/QuestionAnswers.js';
 
 const isDev = process.env.NODE_ENV !== 'production';
 const PORT = process.env.PORT || 5000;
+// const numCPUs = os.cpus().length;
 
 const App = () => {
 
-  // Multi-process to utilize all CPU cores.
-  if (!isDev && isMaster) {
-    console.error(`Node cluster master ${process.pid} is running`);
+  // // Multi-process to utilize all CPU cores.
+  // if (!isDev && cluster.isMaster) {
+  //   console.error(`Node cluster master ${process.pid} is running`);
 
-  } else {
+  //     // Fork workers.
+  //   for (let i = 0; i < numCPUs; i++) {
+  //     cluster.fork();
+  //   }
+
+  //   cluster.on('exit', (worker, code, signal) => {
+  //     console.error(`Node cluster worker ${worker.process.pid} exited: code ${code}, signal ${signal}`);
+  //   });
+
+  // } else {
     configureDb();
     const app = express();
     app.use(bodyParser.urlencoded({ extended: true }))
@@ -172,7 +183,7 @@ const App = () => {
 
     // PUT
     app.put('/api/submit-answers', jsonParser, submitAnswers);
-  }
+  // }
 }
 
 App();
