@@ -5,6 +5,7 @@
   "dependencies": {
     "@homex/hx-component-library": "^14.0.15",
     "@material-ui/core": "^4.12.3",
+    "@types/styled-components": "^5.1.13",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
