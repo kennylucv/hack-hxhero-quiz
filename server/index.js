@@ -47,7 +47,7 @@ const App = () => {
         res.send("Error, sessionId required!");
       }
 
-      var scores = await scoreAnswers(req.body.answers)
+      const scores = await scoreAnswers(req.body.answers)
       const archetype = classify(scores)
       const normedScores = normalizeScores(scores)
       

@@ -2,7 +2,7 @@ import QuestionAnswers from '../models/QuestionAnswers.js';
 
 async function scoreAnswers(answers) {
 
-  var scores = {
+  let scores = {
     action:0,
     knowledge:0,
     risk:0, 
@@ -26,7 +26,7 @@ function normalizeScores(scores) {
   const groupings = {
     knowledge: {
       10: 4,
-      7: 3,
+      8: 3,
       5: 2,
       3: 1,
       0: 0
@@ -53,15 +53,19 @@ function normalizeScores(scores) {
     }
   }
 
+  let normedScores = {}
   for (const feature in scores) {
     for (const cutoff in groupings[feature]) {
       if ( scores[feature] >= cutoff ) {
-        scores[feature] = groupings[feature][cutoff]
-        break;
+        if ((normedScores[feature] === undefined ) || (normedScores[feature] < groupings[feature][cutoff])) {
+          normedScores[feature] = groupings[feature][cutoff];
+        }
       }
     }
   }
-  return scores
+  // special case where price is inverse of all the other options and is a one-one mapping
+  normedScores['price'] = groupings['price'][scores['price']]
+  return normedScores
 }
 
 export {scoreAnswers, normalizeScores}
