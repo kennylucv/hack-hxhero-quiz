@@ -3,7 +3,8 @@ import { isMaster } from 'cluster';
 import bodyParser from 'body-parser';
 
 import configureDb from './configure/configureDb.js';
-import scoreAnswers from './lib/scoreAnswers.js';
+import { scoreAnswers, normalizeScores } from './lib/scoreAnswers.js';
+import classify from './lib/archetypes.js';
 
 import SessionResults from './models/SessionResults.js';
 import Questions from './models/Questions.js';
@@ -46,10 +47,13 @@ const App = () => {
         res.send("Error, sessionId required!");
       }
 
-      const scores = await scoreAnswers(req.body.answers)
+      var scores = await scoreAnswers(req.body.answers)
+      const archetype = classify(scores)
+      const normedScores = normalizeScores(scores)
       
-      console.log('answers submitted')
       console.log(scores)
+      console.log(archetype)
+      console.log(normedScores)
 
       SessionResults.findByIdAndUpdate(
         sessionId,
@@ -57,6 +61,8 @@ const App = () => {
           $set: {
             submittedAt: new Date(),
             answers: req.body.answers,
+            archetype: archetype,
+            scores: normedScores
           }
         },
         {},
