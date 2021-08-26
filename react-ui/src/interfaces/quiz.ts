@@ -7,9 +7,8 @@ export enum QuizState {
 
 export enum Archetype {
   diyer = "diyer",
-  investigator = "investigator",
+  ponderer = "ponderer",
   workarounder = "workarounder",
-  prepper = "prepper",
   boss = "boss",
 }
 

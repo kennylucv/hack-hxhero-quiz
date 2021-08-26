@@ -12,9 +12,9 @@ import {
   QuizHeaderContainer,
   QuizMainContainer,
 } from "./QuizStyled";
-import { Heading, PrimaryButton } from "@homex/hx-component-library";
+import { Heading, Paragraph, PrimaryButton } from "@homex/hx-component-library";
 import { colours } from "../../constants/styles";
-import { LinearProgress, Radio } from "@material-ui/core";
+import { LinearProgress } from "@material-ui/core";
 import AnswerListItem from "../AnswerListItem/AnswerListItem";
 import AnswerCard from "../AnswerCard/AnswerCard";
 
@@ -93,15 +93,15 @@ const Quiz = (props: IIntroProps): JSX.Element => {
           style={{ backgroundColor: colours.progressGray }}
         />
         <QuizHeaderContainer>
-          <Heading
+          <Paragraph
             $fontSize="xxs"
-            $fontWeight="semibold"
+            $fontWeight="bold"
             $fontColor={colours.neutral400}
           >
             {questionProgressDiscription}
-          </Heading>
+          </Paragraph>
           <Heading
-            $fontSize="xs"
+            $fontSize="xxs"
             $fontWeight="regular"
             $fontColor={colours.neutral700}
           >

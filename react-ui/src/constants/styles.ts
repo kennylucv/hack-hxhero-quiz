@@ -8,6 +8,7 @@ export const colours = {
   neutral700: "#2E3336",
   progressGray: "rgba(70, 79, 83, 0.0793816)",
   tertiary200: "#D4EEF5",
+  tertiary600: "#1A3F6C",
   common100: "#FFFFFF",
   transparent: "transparent",
 };

@@ -1,4 +1,4 @@
-import { Heading } from "@homex/hx-component-library";
+import { Paragraph } from "@homex/hx-component-library";
 import { Radio } from "@material-ui/core";
 import React from "react";
 import { colours } from "../../constants/styles";
@@ -15,14 +15,14 @@ const AnswerListItem = (props: IAnswerListItemProps): JSX.Element => {
   return (
     <AnswerListItemContainer onClick={onClick}>
       <Radio checked={isSelected} name={text} value={text} />
-      <Heading
+      <Paragraph
         $fontSize="xxs"
         $fontWeight="regular"
         $fontColor={colours.neutral600}
-        $textAlign="center"
+        $textAlign="left"
       >
         {text}
-      </Heading>
+      </Paragraph>
     </AnswerListItemContainer>
   );
 };

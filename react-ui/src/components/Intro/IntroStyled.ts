@@ -14,7 +14,7 @@ export const IntroContent = styled.div`
   }
 
   button {
-    margin-top: 16px;
+    margin-top: 30px;
   }
 `;
 

@@ -1,4 +1,4 @@
-import { Heading } from "@homex/hx-component-library";
+import { Heading, Paragraph } from "@homex/hx-component-library";
 import React from "react";
 import { colours } from "../../constants/styles";
 import {
@@ -23,16 +23,18 @@ const AnswerCard = (props: IAnswerCardProps): JSX.Element => {
           <img src={imgUrl} />
         </AnswerCardImageContainer>
       )}
-      <AnswerCardTextContainer isSelected={isSelected}>
-        <Heading
-          $fontSize="xxs"
-          $fontWeight="regular"
-          $fontColor={isSelected ? colours.common100 : colours.neutral600}
-          $textAlign="center"
-        >
-          {text}
-        </Heading>
-      </AnswerCardTextContainer>
+      {text && (
+        <AnswerCardTextContainer isSelected={isSelected}>
+          <Paragraph
+            $fontSize="xxs"
+            $fontWeight="regular"
+            $fontColor={isSelected ? colours.common100 : colours.neutral600}
+            $textAlign="center"
+          >
+            {text}
+          </Paragraph>
+        </AnswerCardTextContainer>
+      )}
     </AnswerCardContainer>
   );
 };

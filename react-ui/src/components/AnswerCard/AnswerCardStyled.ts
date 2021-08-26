@@ -7,13 +7,11 @@ interface IAnswerCardProps {
 }
 
 export const AnswerCardContainer = styled.div<IAnswerCardProps>`
-  flex: 1;
   display: flex;
   flex-direction: column;
   margin-right: 10px;
-  width: 162px;
-  min-height: 126px;
   border-radius: 4px;
+  width: 162px;
   border: 1px solid
     ${({ isSelected }) => (isSelected ? colours.prime600 : colours.tertiary200)};
 
@@ -23,6 +21,9 @@ export const AnswerCardContainer = styled.div<IAnswerCardProps>`
 `;
 
 export const AnswerCardImageContainer = styled.div`
+  height: 126px;
+  width: 100%;
+
   img {
     width: 100%;
     height: 100%;

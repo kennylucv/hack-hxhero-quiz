@@ -25,7 +25,7 @@ const App = (): JSX.Element => {
   const [sessionId, setSessionId] = useState<string | undefined>(undefined);
 
   const resetApp = () => {
-    setQuizState(QuizState.intro);
+    setQuizState(QuizState.results);
     setResults([]);
   };
 

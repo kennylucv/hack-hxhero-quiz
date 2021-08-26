@@ -7,7 +7,7 @@ export const IntroPage = styled.div``;
 export const QuizContent = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 800px;
+  width: 800px;
   min-height: 430px;
   background: #ffffff;
   border: 1px solid #d4eef5;
@@ -35,9 +35,11 @@ export const QuizMainContainer = styled.div<IQuizMainContainerProps>`
     type === QuestionType.list
       ? `
     flex-direction: column;
-    align-items: flex-start;
   `
-      : ""}
+      : `
+    justify-content: space-evenly;
+      `}
+  align-items: flex-start;
 `;
 
 export const QuizFooterContainer = styled.div`

@@ -20,7 +20,7 @@ interface IIntroProps {
 const strings = {
   headerText: "What Kind of Home Hero Are You?",
   bodyText:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
+    "When it comes to taking care of your home, do you roll up your sleeves and do the dirty work? Ramble off questions? Or do you prefer to sit back and leave it to the pros? Find out what kind of Home Hero you are.",
   ctaText: "Start Quiz",
 };
 
