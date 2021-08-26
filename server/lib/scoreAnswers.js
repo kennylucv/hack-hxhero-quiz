@@ -39,11 +39,11 @@ function normalizeScores(scores) {
       0: 0
     },
     risk: {
-      10: 0,
-      9: 1,
+      10: 4,
+      9: 3,
       8: 2,
-      3: 3,
-      0: 4
+      3: 1,
+      0: 0
     },
     price: {
       5: 0,

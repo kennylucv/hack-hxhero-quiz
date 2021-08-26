@@ -30,9 +30,9 @@ const strings = {
   priceHeader: "Cost Aversion",
   priceBody:
     "How much money you’re willing (or not willing) to spend on home management",
-  riskHeader: "Risk Aversion",
+  riskHeader: "Risk Tolerance",
   riskBody:
-    "How much risk you're willing to take when it comes to home management tasks",
+    "How willing you are to take on risk when it comes to home management tasks",
   actionHeader: "Action Orientation",
   actionBody:
     "Whether or not you're likely to take action with home management tasks",
