@@ -1,7 +1,9 @@
 import express from 'express';
 import { isMaster } from 'cluster';
-import configureDb from './configure/configureDb.js';
 import bodyParser from 'body-parser';
+
+import configureDb from './configure/configureDb.js';
+import scoreAnswers from './lib/scoreAnswers.js';
 
 import SessionResults from './models/SessionResults.js';
 import Questions from './models/Questions.js';
@@ -35,7 +37,7 @@ const App = () => {
       })
     };
 
-    const submitAnswers = (req, res) => {
+    const submitAnswers = async (req, res) => {
       res.set('Content-Type', 'application/json');
 
       const sessionId = req.body.sessionId;
@@ -43,6 +45,11 @@ const App = () => {
       if (!sessionId) {
         res.send("Error, sessionId required!");
       }
+
+      const scores = await scoreAnswers(req.body.answers)
+      
+      console.log('answers submitted')
+      console.log(scores)
 
       SessionResults.findByIdAndUpdate(
         sessionId,
