@@ -1,0 +1,278 @@
+{
+    "questions": [
+        { 
+            "question": "test question 1",
+            "left": "left",
+            "right": "right",
+            "answers": [
+                {
+                    "id": "answer_1",
+                    "answer": "diyer",
+                    "points": [
+                        {
+                            "archetype": "diyer",
+                            "amount": 5
+                        },
+                        {
+                            "archetype": "investigator",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "workarounder",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "prepper",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "boss",
+                            "amount": 1
+                        }
+                    ]
+                },
+                {
+                    "id": "answer_2",
+                    "answer": "investigator",
+                    "points": [
+                        {
+                            "archetype": "diyer",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "investigator",
+                            "amount": 5
+                        },
+                        {
+                            "archetype": "workarounder",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "prepper",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "boss",
+                            "amount": 1
+                        }
+                    ]
+                },
+                {
+                    "id": "answer_3",
+                    "answer": "workarounder",
+                    "points": [
+                        {
+                            "archetype": "diyer",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "investigator",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "workarounder",
+                            "amount": 5
+                        },
+                        {
+                            "archetype": "prepper",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "boss",
+                            "amount": 1
+                        }
+                    ]
+                },
+                {
+                    "id": "answer_4",
+                    "answer": "prepper",
+                    "points": [
+                        {
+                            "archetype": "diyer",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "investigator",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "workarounder",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "prepper",
+                            "amount": 4
+                        },
+                        {
+                            "archetype": "boss",
+                            "amount": 1
+                        }
+                    ]
+                },
+                {
+                    "id": "answer_5",
+                    "answer": "boss",
+                    "points": [
+                        {
+                            "archetype": "diyer",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "investigator",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "workarounder",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "prepper",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "boss",
+                            "amount": 5
+                        }
+                    ]
+                }
+            ]
+        },
+        { 
+            "question": "test question 2",
+            "left": "left",
+            "right": "right",
+            "answers": [
+                {
+                    "id": "answer_6",
+                    "answer": "diyer",
+                    "points": [
+                        {
+                            "archetype": "diyer",
+                            "amount": 5
+                        },
+                        {
+                            "archetype": "investigator",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "workarounder",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "prepper",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "boss",
+                            "amount": 1
+                        }
+                    ]
+                },
+                {
+                    "id": "answer_7",
+                    "answer": "investigator",
+                    "points": [
+                        {
+                            "archetype": "diyer",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "investigator",
+                            "amount": 5
+                        },
+                        {
+                            "archetype": "workarounder",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "prepper",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "boss",
+                            "amount": 1
+                        }
+                    ]
+                },
+                {
+                    "id": "answer_8",
+                    "answer": "workarounder",
+                    "points": [
+                        {
+                            "archetype": "diyer",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "investigator",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "workarounder",
+                            "amount": 5
+                        },
+                        {
+                            "archetype": "prepper",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "boss",
+                            "amount": 1
+                        }
+                    ]
+                },
+                {
+                    "id": "answer_9",
+                    "answer": "prepper",
+                    "points": [
+                        {
+                            "archetype": "diyer",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "investigator",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "workarounder",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "prepper",
+                            "amount": 4
+                        },
+                        {
+                            "archetype": "boss",
+                            "amount": 1
+                        }
+                    ]
+                },
+                {
+                    "id": "answer_10",
+                    "answer": "boss",
+                    "points": [
+                        {
+                            "archetype": "diyer",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "investigator",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "workarounder",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "prepper",
+                            "amount": 1
+                        },
+                        {
+                            "archetype": "boss",
+                            "amount": 5
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
