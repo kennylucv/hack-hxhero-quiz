@@ -3,7 +3,7 @@ import { isMaster } from 'cluster';
 import configureDb from './configure/configureDb.js';
 import bodyParser from 'body-parser';
 
-import Answers from './models/Answers.js';
+import SessionResults from './models/SessionResults.js';
 import Questions from './models/Questions.js';
 import QuestionAnswers from './models/QuestionAnswers.js';
 
@@ -16,28 +16,48 @@ const App = () => {
   if (!isDev && isMaster) {
     console.error(`Node cluster master ${process.pid} is running`);
 
-    // on('exit', (worker, code, signal) => {
-    //   console.error(`Node cluster worker ${worker.process.pid} exited: code ${code}, signal ${signal}`);
-    // });
-
   } else {
     configureDb();
     const app = express();
     app.use(bodyParser.urlencoded({ extended: true }))
     const jsonParser = bodyParser.json()
 
-    const addAnswers = (req, res) => {
+    const startSession = async (req, res) => {
       res.set('Content-Type', 'application/json');
 
-      const newAnswers = new Answers({
-        timestamp: new Date(),
-        answers: req.body.answers
+      const newSession = new SessionResults({
+        createdAt: new Date(),
       })
 
-      newAnswers.save(function (error, document) {
+      newSession.save(function (error, document) {
         if (error) console.error(error)
-        res.json(document);
+        res.json({ sessionId: document._id });
       })
+    };
+
+    const submitAnswers = (req, res) => {
+      res.set('Content-Type', 'application/json');
+
+      const sessionId = req.body.sessionId;
+
+      if (!sessionId) {
+        res.send("Error, sessionId required!");
+      }
+
+      SessionResults.findByIdAndUpdate(
+        sessionId,
+        {
+          $set: {
+            submittedAt: new Date(),
+            answers: req.body.answers,
+          }
+        },
+        {},
+        (err, doc) => {
+          res.json(doc);
+        } 
+      )
+      
     };
 
     const importQuestions = async (req, res) => {
@@ -73,7 +93,7 @@ const App = () => {
 
         for (const answerInput of answers) {
           const {answer, points, imgUrl} = answerInput;
-          if (!answerInput || !points) {
+          if (!answerInput) {
             res.send("Error with answerInput");
           }
 
@@ -115,7 +135,7 @@ const App = () => {
         const questionRes = {
           ...question._doc,
           answers: questionAnswers.map((qAnswer) => {
-            const {questionId, _id, ...rest} = qAnswer._doc;
+            const {_id, ...rest} = qAnswer._doc;
             return { id: _id, ...rest};
           }),
         };
@@ -131,14 +151,15 @@ const App = () => {
     });
 
     // POSTS
-    app.post('/api/answers', jsonParser, addAnswers);
     app.post('/api/import-questions', jsonParser, importQuestions);
+    app.post('/api/start-session', startSession)
 
     // GET
     app.get('/api/questions', getQuestions);
+
+    // PUT
+    app.put('/api/submit-answers', jsonParser, submitAnswers);
   }
 }
-
-
 
 App();

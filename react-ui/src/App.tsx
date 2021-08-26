@@ -2,8 +2,10 @@
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import getQuizData from "./api/getQuizData";
+import startSession from "./api/startSession";
 import submitAnswers from "./api/submitAnswers";
 import "./App.css";
+import Dashboard from "./components/Dashboard/Dashboard";
 import Intro from "./components/Intro/Intro";
 import Quiz from "./components/Quiz/Quiz";
 import Results from "./components/Results/Results";
@@ -20,6 +22,7 @@ const App = (): JSX.Element => {
   const [results, setResults] = useState<IAnswer[]>([]);
   const [loading, setLoading] = useState(false);
   const [quizData, setQuizData] = useState<IQuizData | undefined>(undefined);
+  const [sessionId, setSessionId] = useState<string | undefined>(undefined);
 
   const resetApp = () => {
     setQuizState(QuizState.intro);
@@ -47,9 +50,14 @@ const App = (): JSX.Element => {
     const submitReqBody: ISubmitAnswers = {
       answers: results.map((answer) => ({
         answerId: answer.id,
+        questionId: answer.questionId,
       })),
     };
-    await submitAnswers(submitReqBody);
+    if (!sessionId) {
+      console.log("invalid session Id");
+      return;
+    }
+    await submitAnswers(sessionId, submitReqBody);
   };
 
   const handleFinishQuiz = async (results: IAnswer[]) => {
@@ -72,8 +80,16 @@ const App = (): JSX.Element => {
       });
     }
 
-    return;
-  }, [quizData]);
+    if (!sessionId) {
+      startSession().then((data) => {
+        if (data) {
+          setSessionId(data.sessionId);
+        }
+      });
+    }
+  }, [quizData, sessionId]);
+
+  console.log("sessionId", sessionId);
 
   return (
     <ThemeProvider theme={theme}>
@@ -92,6 +108,7 @@ const App = (): JSX.Element => {
         {quizState === QuizState.results && (
           <Results answers={results} onStartOver={handleQuizState} />
         )}
+        {quizState === QuizState.dashboard && <Dashboard />}
       </div>
     </ThemeProvider>
   );

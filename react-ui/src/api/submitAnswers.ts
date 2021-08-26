@@ -1,9 +1,15 @@
 import { ISubmitAnswers } from "../interfaces/quiz";
 
-const submitAnswers = async (answers: ISubmitAnswers) => {
-  const url = "/api/answers";
-  const body = JSON.stringify(answers);
-  const method = "POST";
+const submitAnswers = async (
+  sessionId: string,
+  answers: ISubmitAnswers
+): Promise<void> => {
+  const url = "/api/submit-answers";
+  const body = JSON.stringify({
+    answers: answers.answers,
+    sessionId,
+  });
+  const method = "PUT";
   const headers = {
     "Content-Type": "application/json",
   };

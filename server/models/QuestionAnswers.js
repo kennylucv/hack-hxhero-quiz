@@ -5,10 +5,12 @@ const QuestionAnswersSchema = new Schema({
   questionId: String,
   answer: String,
   imgUrl: String,
-  points: [{
-    archetype: String,
-    amount: Number,
-  }]
+  points: {
+    risk: Number,
+    knowledge: Number,
+    action: Number,
+    price: Number,
+  }
 })
 
 export default mongoose.model('QuestionAnswers', QuestionAnswersSchema);

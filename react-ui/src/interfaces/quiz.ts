@@ -2,6 +2,7 @@ export enum QuizState {
   intro = "intro",
   quiz = "quiz",
   results = "results",
+  dashboard = "dashboard",
 }
 
 export enum Archetype {
@@ -21,6 +22,10 @@ export interface IQuizData {
   questions: IQuestion[];
 }
 
+export interface IStartSessionResponse {
+  sessionId: string;
+}
+
 export interface IQuestion {
   question: string;
   type: QuestionType;
@@ -29,6 +34,7 @@ export interface IQuestion {
 
 export interface IAnswer {
   id: string;
+  questionId: string;
   answer: string;
   points: IAnswerPoints[];
   imgUrl?: string;
@@ -44,6 +50,6 @@ export interface ISubmitAnswers {
 }
 
 export interface IAnswerReq {
-  questionId?: string;
+  questionId: string;
   answerId: string;
 }
