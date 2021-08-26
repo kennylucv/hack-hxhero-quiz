@@ -46,10 +46,10 @@ function normalizeScores(scores) {
       0: 4
     },
     price: {
-      5: 4,
-      2: 3,
-      1: 1,
-      0: 0
+      5: 0,
+      2: 1,
+      1: 3,
+      0: 4
     }
   }
 
