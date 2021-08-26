@@ -11,6 +11,12 @@ const SessionResultsSchema = new Schema({
   email: String,
   sessionId: String,
   archetype: String,
+  scores: {
+    action: Number,
+    knowledge: Number,
+    risk: Number, 
+    price: Number
+  }
 })
 
 export default mongoose.model('SessionResults', SessionResultsSchema);
