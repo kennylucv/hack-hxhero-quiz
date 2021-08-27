@@ -155,12 +155,13 @@ const App = () => {
 
       // find questionAnswers
       for (const question of questions) {
-        const { _id: questionId } = question._doc;
+        const { _id: questionId, ...rest } = question._doc;
 
         const questionAnswers = await QuestionAnswers.find({ questionId });
 
         const questionRes = {
-          ...question._doc,
+          id: questionId,
+          ...rest,
           answers: questionAnswers.map((qAnswer) => {
             const {_id, ...rest} = qAnswer._doc;
             return { id: _id, ...rest};
@@ -203,53 +204,41 @@ const App = () => {
 
       res.json({ pieData: archetypes});
     };
-    
+
     const getAnswerPercent = async (req, res) => {
       res.set('Content-Type', 'application/json');
       const questionId = req.body.questionId;
       const archetype = req.body.archetype;
-      
-      if (!archetype) {
-        res.send("archeype required");
-      }
 
       if (!questionId) {
         res.send("questionId required");
       }
-
-      console.log({archetype});
       
-      const sessionsQ = (await SessionResults.find({ archetype }));
+      
+      const sessionsQ = (await SessionResults.find( archetype ? { archetype }: undefined));
 
-      // console.log(sess)
-
-      if (sessionsQ.lengh === 0) {
-      }
+      console.log(sessionsQ);
 
       let sessionsAnswerIdsForQuestion = []
       const results = {};
+      let totalCount = 0;
 
       for (const session of sessionsQ) {
         const answers = session._doc.answers.filter((answer) => answer.questionId === questionId);
         for (const answer of answers) {
           const answerId = answer.answerId;
           if (!results[answerId]) {
-            results[answerId] = 1;
+            const answer = (await QuestionAnswers.findById(answerId))._doc;
+            results[answerId] = {count: 1, answer: answer.answer};
             sessionsAnswerIdsForQuestion.push(answerId)
           } else {
-            results[answerId] += 1; 
+            results[answerId].count += 1; 
           }
+          totalCount += 1;
         }
       }
 
-      let answersCollection = []
-
-      for (const answerId of sessionsAnswerIdsForQuestion) {
-        const answer = (await QuestionAnswers.findById(answerId))._doc;
-        answersCollection.push(answer);
-      }
-
-      res.json({ results, answers: answersCollection });
+      res.json({ results, totalCount });
     }
 
     app.listen(PORT, function () {
@@ -267,7 +256,7 @@ const App = () => {
     // GET
     app.get('/api/questions', getQuestions);
     app.get('/api/get-session/:id', jsonParser, getSession);
-    app.get('/api/get-pieData', getPieData);
+    app.get('/api/get-piedata', getPieData);
 
       // All remaining requests return the React app, so it can handle routing.
     app.get('*', function(request, response) {

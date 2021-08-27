@@ -1,21 +1,12 @@
-import { Heading, PrimaryButton } from "@homex/hx-component-library";
-import React from "react";
-import { colours } from "../../constants/styles";
-import {
-  CloudLeftContainer,
-  CloudRightContainer,
-  IntroContent,
-  SubHeadingStyled,
-} from "./DashboardStyled";
+import React, { useEffect, useState } from "react";
 
-import CloudLeft from "../../assets/CloudLeft.svg";
-import CloudRight from "../../assets/CloudRight.svg";
 import { Page } from "../genericsStyled";
-import GraphicFooter from "../GraphicFooter/GraphicFooter";
+import { Archetype, IPieData, IQuizData, IScore } from "../../interfaces/quiz";
+import getPieData from "../../api/getPieData";
 
-interface IIntroProps {
-  onClickStart: () => void;
-}
+import { Chart, Legend, PieSeries, Title } from '@devexpress/dx-react-chart-material-ui';
+import { FormControl, InputLabel, Paper, Select } from "@material-ui/core";
+import getAnswerPercent, { IAnswerData, IGetAnswerPercentResults } from "../../api/getAnswerPercent";
 
 const strings = {
   headerText: "What Kind of Home Hero Are You?",
@@ -24,8 +15,121 @@ const strings = {
   ctaText: "Start Quiz",
 };
 
-const Dashboard = (): JSX.Element => {
-  return <Page></Page>;
+const pollDelay = 5000;
+
+interface IChartData {
+  archetype: string;
+  count: number;
+}
+
+interface IDashboardProps {
+  quizData: IQuizData;
+}
+
+const Dashboard = (props: IDashboardProps): JSX.Element => {
+  const archetypes = Object.values(Archetype);
+  const questions = props.quizData.questions;
+  const [pieData, setPieData] = useState<IPieData | undefined>();
+  const [chartData, setChartData] = useState<IChartData[]>([]);
+  const [selectedQuestionId, setSelectedQuestionId] = useState('');
+  const [selectedArchetype, setSelectedArchetype] = useState('all');
+  const [answerData, setAnswerData] = useState<IAnswerData[]>([]);
+
+
+  const transformData = (data: IPieData) => {
+    const dataKeys = Object.keys(data);
+    const chartData = dataKeys.map((key) => ({ archetype: key, count: (data as any)[key] as number}));
+    return chartData;
+  }
+
+  const transformPercentData = (data: IGetAnswerPercentResults) => {
+    const { results } = data;
+    return Object.values(data.results);
+  }
+
+  const fetchPieData = async() => {
+    getPieData().then((data) => {
+      if (data) {
+        const chartData = transformData(data.pieData);
+        setChartData(chartData);
+        setPieData(data.pieData);
+      }
+    });
+  }
+
+  console.log("chart data", chartData)
+
+  useEffect(() => {
+    let interval = setInterval(() => fetchPieData(), (pollDelay))
+
+    if (!!selectedQuestionId) {
+      getAnswerPercent(selectedQuestionId, selectedArchetype).then((data) => {
+        if (data) {
+          const ansData = transformPercentData(data);
+          setAnswerData(ansData);
+        }
+      });
+    }
+
+    //destroy interval on unmount
+    return () => clearInterval(interval)
+  }, [selectedQuestionId, selectedArchetype]);
+
+  
+  return (
+      <Paper>
+        <Chart
+          data={chartData}
+        >
+          <PieSeries
+            valueField="count"
+            argumentField="archetype"
+          />
+          <Legend />
+          <Title text="Archetypes" />
+        </Chart>
+
+        <div>
+          <InputLabel htmlFor="age-native-simple">Question</InputLabel>
+          <Select
+            native
+            value={selectedQuestionId}
+            onChange={(e) => setSelectedQuestionId(e.target.value as string)}
+          >
+            <option aria-label="None" value="" />
+            {questions.map((question) => (
+              <option value={question.id}>{question.question}</option>
+            ))}
+          </Select>
+
+          <InputLabel htmlFor="age-native-simple">Archetype</InputLabel>
+          <Select
+            native
+            value={selectedArchetype}
+            onChange={(e) => setSelectedArchetype(e.target.value as string)}
+          >
+            <option aria-label="None" value="all">ALL</option>
+            {archetypes.map((archetype) => (
+              <option value={archetype}>{archetype.toUpperCase()}</option>
+            ))}
+          </Select>
+
+          {answerData.length > 0 && (
+            <Chart
+              data={answerData}
+            >
+              <PieSeries
+                valueField="count"
+                argumentField="answer"
+              />
+              <Legend />
+              <Title text="Answer Metrics" />
+            </Chart>
+          )}
+
+        </div>
+      </Paper>
+  );
 };
 
 export default Dashboard;

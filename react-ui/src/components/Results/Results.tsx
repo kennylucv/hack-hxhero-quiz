@@ -27,6 +27,7 @@ interface IResultsProps {
   sessionId: string;
   answers: IAnswer[];
   onStartOver: () => void;
+  showDashboard: () => void;
 }
 
 import DiyerGraphic from "../../assets/DiyerGraphic.svg";
@@ -106,7 +107,6 @@ const Results = (props: IResultsProps): JSX.Element => {
   useEffect(() => {
     if (!resultArchetype) {
       getSessionData(props.sessionId).then((data) => {
-        console.log("data", { data });
         if (data) {
           setResultArchtype(data.archetype);
           setScores(data.scores);
@@ -178,10 +178,10 @@ const Results = (props: IResultsProps): JSX.Element => {
       </ResultsContent>
       <GrassFooterContainer>
         <GrassInner>
-          <GrassImageContainer position="left">
+          <GrassImageContainer position="left" onClick={props.showDashboard}>
             <img src={GrassLeft} alt={"grass"} />
           </GrassImageContainer>
-          <GrassImageContainer position="right">
+          <GrassImageContainer position="right" onClick={props.showDashboard}>
             <img src={GrassLeft} alt={"grass"} />
           </GrassImageContainer>
         </GrassInner>

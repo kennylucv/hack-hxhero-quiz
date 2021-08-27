@@ -42,6 +42,10 @@ const App = (): JSX.Element => {
     }
   };
 
+  const handleShowDashboard = async () => {
+    setQuizState(QuizState.dashboard)
+  }
+
   const handleAddResult = (newResults: IAnswer[]) => {
     setResults(newResults);
   };
@@ -105,12 +109,13 @@ const App = (): JSX.Element => {
         )}
         {quizState === QuizState.results && (
           <Results
+            showDashboard={handleShowDashboard}
             sessionId={sessionId || ""}
             answers={results}
             onStartOver={handleQuizState}
           />
         )}
-        {quizState === QuizState.dashboard && <Dashboard />}
+        {quizState === QuizState.dashboard && quizData && <Dashboard quizData={quizData}/>}
       </div>
     </ThemeProvider>
   );

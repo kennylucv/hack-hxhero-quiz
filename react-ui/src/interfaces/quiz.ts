@@ -26,6 +26,7 @@ export interface IStartSessionResponse {
 }
 
 export interface IQuestion {
+  id: string;
   question: string;
   type: QuestionType;
   answers: IAnswer[];
@@ -63,4 +64,11 @@ export interface IScore {
   knowledge: number;
   risk: number;
   price: number;
+}
+
+export interface IPieData {
+  diyer: number;
+  ponderer: number;
+  workarounder: number;
+  boss: number;
 }
