@@ -32,7 +32,7 @@ const Dashboard = (props: IDashboardProps): JSX.Element => {
   const [pieData, setPieData] = useState<IPieData | undefined>();
   const [chartData, setChartData] = useState<IChartData[]>([]);
   const [selectedQuestionId, setSelectedQuestionId] = useState('');
-  const [selectedArchetype, setSelectedArchetype] = useState('all');
+  const [selectedArchetype, setSelectedArchetype] = useState('diyer');
   const [answerData, setAnswerData] = useState<IAnswerData[]>([]);
 
 
@@ -108,7 +108,6 @@ const Dashboard = (props: IDashboardProps): JSX.Element => {
             value={selectedArchetype}
             onChange={(e) => setSelectedArchetype(e.target.value as string)}
           >
-            <option aria-label="None" value="all">ALL</option>
             {archetypes.map((archetype) => (
               <option value={archetype}>{archetype.toUpperCase()}</option>
             ))}
