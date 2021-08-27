@@ -178,11 +178,15 @@ const App = () => {
     app.post('/api/import-questions', jsonParser, importQuestions);
     app.post('/api/start-session', startSession)
 
-    // GET
-    app.get('/api/questions', getQuestions);
-
     // PUT
     app.put('/api/submit-answers', jsonParser, submitAnswers);
+
+    // GET
+    app.get('/api/questions', getQuestions);
+      // All remaining requests return the React app, so it can handle routing.
+    app.get('*', function(request, response) {
+      response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
+    });
   // }
 }
 
