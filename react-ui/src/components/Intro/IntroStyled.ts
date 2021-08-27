@@ -16,6 +16,8 @@ export const IntroContent = styled.div`
   button {
     margin-top: 30px;
   }
+
+  z-index: 100;
 `;
 
 export const SubHeadingStyled = styled(Subheading)`
