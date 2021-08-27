@@ -1,7 +1,6 @@
 import express from 'express';
-// import cluster from 'cluster';
 import bodyParser from 'body-parser';
-// import os from 'os';
+import * as path from 'path';
 
 import configureDb from './configure/configureDb.js';
 import { scoreAnswers, normalizeScores } from './lib/scoreAnswers.js';
@@ -13,6 +12,7 @@ import QuestionAnswers from './models/QuestionAnswers.js';
 
 const isDev = process.env.NODE_ENV !== 'production';
 const PORT = process.env.PORT || 5000;
+const __dirname = path.resolve();
 // const numCPUs = os.cpus().length;
 
 const App = () => {
@@ -34,6 +34,7 @@ const App = () => {
     configureDb();
     const app = express();
     app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
     const jsonParser = bodyParser.json()
 
     const startSession = async (req, res) => {

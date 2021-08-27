@@ -31,7 +31,11 @@ const Intro = (props: IIntroProps): JSX.Element => {
         <Heading $fontColor={colours.prime600} $textAlign="center">
           {strings.headerText}
         </Heading>
-        <SubHeadingStyled $fontColor={colours.black} $textAlign="center">
+        <SubHeadingStyled
+          $fontColor={colours.black}
+          $fontSize="s"
+          $textAlign="center"
+        >
           {strings.bodyText}
         </SubHeadingStyled>
         <PrimaryButton btnSize="m" btnType="solid" onClick={props.onClickStart}>
