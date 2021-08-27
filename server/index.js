@@ -1,6 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 import configureDb from './configure/configureDb.js';
 import { scoreAnswers, normalizeScores } from './lib/scoreAnswers.js';
@@ -12,7 +15,6 @@ import QuestionAnswers from './models/QuestionAnswers.js';
 
 const isDev = process.env.NODE_ENV !== 'production';
 const PORT = process.env.PORT || 5000;
-const __dirname = path.resolve();
 // const numCPUs = os.cpus().length;
 
 const App = () => {
