@@ -185,6 +185,25 @@ const App = () => {
       res.json({session});
     }
 
+    const getPieData = async (req, res) => {
+
+      let archetypes = {
+        diyer: 0,
+        ponderer: 0,
+        workarounder: 0,
+        boss: 0
+      }
+
+      const sessions = await SessionResults.find();
+      for (const session of sessions) {
+        if ( session._doc.archetype ) {
+          archetypes[session._doc.archetype] += 1
+        }
+      }
+
+      res.json({ pieData: archetypes});
+    }
+
     app.listen(PORT, function () {
       console.error(`Node ${isDev ? 'dev server' : 'cluster worker '+process.pid}: listening on port ${PORT}`);
     });
@@ -199,6 +218,8 @@ const App = () => {
     // GET
     app.get('/api/questions', getQuestions);
     app.get('/api/get-session/:id', jsonParser, getSession);
+    app.get('/api/get-pieData', getPieData);
+
       // All remaining requests return the React app, so it can handle routing.
     app.get('*', function(request, response) {
       response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
