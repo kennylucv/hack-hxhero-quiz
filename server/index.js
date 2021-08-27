@@ -202,6 +202,54 @@ const App = () => {
       }
 
       res.json({ pieData: archetypes});
+    };
+    
+    const getAnswerPercent = async (req, res) => {
+      res.set('Content-Type', 'application/json');
+      const questionId = req.body.questionId;
+      const archetype = req.body.archetype;
+      
+      if (!archetype) {
+        res.send("archeype required");
+      }
+
+      if (!questionId) {
+        res.send("questionId required");
+      }
+
+      console.log({archetype});
+      
+      const sessionsQ = (await SessionResults.find({ archetype }));
+
+      // console.log(sess)
+
+      if (sessionsQ.lengh === 0) {
+      }
+
+      let sessionsAnswerIdsForQuestion = []
+      const results = {};
+
+      for (const session of sessionsQ) {
+        const answers = session._doc.answers.filter((answer) => answer.questionId === questionId);
+        for (const answer of answers) {
+          const answerId = answer.answerId;
+          if (!results[answerId]) {
+            results[answerId] = 1;
+            sessionsAnswerIdsForQuestion.push(answerId)
+          } else {
+            results[answerId] += 1; 
+          }
+        }
+      }
+
+      let answersCollection = []
+
+      for (const answerId of sessionsAnswerIdsForQuestion) {
+        const answer = (await QuestionAnswers.findById(answerId))._doc;
+        answersCollection.push(answer);
+      }
+
+      res.json({ results, answers: answersCollection });
     }
 
     app.listen(PORT, function () {
@@ -211,6 +259,7 @@ const App = () => {
     // POSTS
     app.post('/api/import-questions', jsonParser, importQuestions);
     app.post('/api/start-session', startSession)
+    app.post('/api/get-answer-percent', jsonParser, getAnswerPercent)
 
     // PUT
     app.put('/api/submit-answers', jsonParser, submitAnswers);
