@@ -85,6 +85,8 @@ const CharacteristicCard = (props: ICharacteristicCardProps): JSX.Element => {
 
   const { headerText, bodyText } = getTextContent();
 
+  const valueNormalized = (value / 4) * 100;
+
   return (
     <CharacteristicsCard>
       <CharacteristicsCardContent>
@@ -112,7 +114,7 @@ const CharacteristicCard = (props: ICharacteristicCardProps): JSX.Element => {
       </CharacteristicsCardContent>
       <LinearProgress
         variant="determinate"
-        value={value}
+        value={valueNormalized}
         style={{ backgroundColor: colours.progressGray }}
       />
     </CharacteristicsCard>

@@ -9,6 +9,7 @@ const submitAnswers = async (
     answers: answers.answers,
     sessionId,
   });
+  console.log("submitAnswers", { body });
   const method = "PUT";
   const headers = {
     "Content-Type": "application/json",

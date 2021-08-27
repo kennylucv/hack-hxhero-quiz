@@ -173,6 +173,18 @@ const App = () => {
       res.json({ questions: questionResponses});
     }
 
+    const getSession = async (req, res) => {
+      res.set('Content-Type', 'application/json');
+      const sessionId = req.params.id;
+      
+      if (!sessionId) {
+        res.send("Cannot find sessionId");
+      }
+      
+      const session = (await SessionResults.findById(sessionId))._doc;
+      res.json({session});
+    }
+
     app.listen(PORT, function () {
       console.error(`Node ${isDev ? 'dev server' : 'cluster worker '+process.pid}: listening on port ${PORT}`);
     });
@@ -186,6 +198,7 @@ const App = () => {
 
     // GET
     app.get('/api/questions', getQuestions);
+    app.get('/api/get-session/:id', jsonParser, getSession);
       // All remaining requests return the React app, so it can handle routing.
     app.get('*', function(request, response) {
       response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));

@@ -60,7 +60,7 @@ export const EmailInputContainer = styled.div`
 `;
 
 interface IAvatarImageContainerProps {
-  type: Archetype;
+  type?: Archetype;
 }
 
 export const AvatarImageContainer = styled.div<IAvatarImageContainerProps>`

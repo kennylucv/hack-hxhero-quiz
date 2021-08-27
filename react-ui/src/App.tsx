@@ -89,8 +89,6 @@ const App = (): JSX.Element => {
     }
   }, [quizData, sessionId]);
 
-  console.log("sessionId", sessionId);
-
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
@@ -106,7 +104,11 @@ const App = (): JSX.Element => {
           />
         )}
         {quizState === QuizState.results && (
-          <Results answers={results} onStartOver={handleQuizState} />
+          <Results
+            sessionId={sessionId || ""}
+            answers={results}
+            onStartOver={handleQuizState}
+          />
         )}
         {quizState === QuizState.dashboard && <Dashboard />}
       </div>

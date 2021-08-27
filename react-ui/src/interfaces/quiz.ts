@@ -52,3 +52,15 @@ export interface IAnswerReq {
   questionId: string;
   answerId: string;
 }
+
+export interface ISessionData {
+  archetype: Archetype;
+  scores: IScore;
+}
+
+export interface IScore {
+  action: number;
+  knowledge: number;
+  risk: number;
+  price: number;
+}

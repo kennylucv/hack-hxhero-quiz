@@ -4,9 +4,9 @@ import {
   Paragraph,
   SecondaryButton,
 } from "@homex/hx-component-library";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { colours } from "../../constants/styles";
-import { Archetype, IAnswer } from "../../interfaces/quiz";
+import { Archetype, IAnswer, IScore } from "../../interfaces/quiz";
 import CharacteristicCard, {
   Characteristic,
 } from "../CharacteristicCard/CharacteristicCard";
@@ -24,6 +24,7 @@ import {
 } from "./ResultsStyled";
 
 interface IResultsProps {
+  sessionId: string;
   answers: IAnswer[];
   onStartOver: () => void;
 }
@@ -33,6 +34,7 @@ import WorkArounderGraphic from "../../assets/WorkArounderGraphic.svg";
 import BossGraphic from "../../assets/BossGraphic.svg";
 import PondererGraphic from "../../assets/PondererGraphic.svg";
 import GrassLeft from "../../assets/GrassLeft.svg";
+import getSessionData from "../../api/getSessionData";
 
 const strings = {
   diyerHeader: "You're the DIYer!",
@@ -55,7 +57,10 @@ const strings = {
 
 const Results = (props: IResultsProps): JSX.Element => {
   const [emailInput, setEmailInput] = useState("");
-  const [resultArchetype, setResultArchtype] = useState(Archetype.workarounder);
+  const [resultArchetype, setResultArchtype] = useState<Archetype | undefined>(
+    undefined
+  );
+  const [scores, setScores] = useState<IScore | undefined>(undefined); 
 
   const getStrings = (): {
     headerText: string;
@@ -96,7 +101,21 @@ const Results = (props: IResultsProps): JSX.Element => {
       default:
         return DiyerGraphic;
     }
-  }
+  };
+
+  useEffect(() => {
+    if (!resultArchetype) {
+      getSessionData(props.sessionId).then((data) => {
+        console.log("data", { data });
+        if (data) {
+          setResultArchtype(data.archetype);
+          setScores(data.scores);
+        }
+      });
+    }
+  }, [resultArchetype]);
+
+  console.log("res Archetype", { resultArchetype });
 
   return (
     <ResutlsPage>
@@ -120,10 +139,10 @@ const Results = (props: IResultsProps): JSX.Element => {
         </ResultsHeader>
 
         <CharacteristicsContainer>
-          <CharacteristicCard type={Characteristic.price} value={10} />
-          <CharacteristicCard type={Characteristic.risk} value={90} />
-          <CharacteristicCard type={Characteristic.action} value={70} />
-          <CharacteristicCard type={Characteristic.knowledge} value={10} />
+          <CharacteristicCard type={Characteristic.price} value={scores ? scores.price : 0} />
+          <CharacteristicCard type={Characteristic.risk} value={scores ? scores.risk : 0} />
+          <CharacteristicCard type={Characteristic.action} value={scores ? scores.action : 0} />
+          <CharacteristicCard type={Characteristic.knowledge} value={scores ? scores.knowledge : 0} />
         </CharacteristicsContainer>
 
         <EmailContainer>
