@@ -85,7 +85,7 @@ const CharacteristicCard = (props: ICharacteristicCardProps): JSX.Element => {
 
   const { headerText, bodyText } = getTextContent();
 
-  const valueNormalized = (value / 4) * 100;
+  const valueNormalized = (value * 20) + 10;
 
   return (
     <CharacteristicsCard>
