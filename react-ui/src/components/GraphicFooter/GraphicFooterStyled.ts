@@ -7,4 +7,5 @@ export const FooterImageContainer = styled.div`
   display: flex;
   justify-content: center;
   overflow: hidden;
+  z-index: 2;
 `;
