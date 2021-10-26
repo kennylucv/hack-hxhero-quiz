@@ -37,17 +37,22 @@ export const QuizMainContainer = styled.div<IQuizMainContainerProps>`
   align-items: center;
   border-top: 1px solid #d4eef5;
   border-bottom: 1px solid #d4eef5;
-  display: flex;
   ${({ type }) =>
     type === QuestionType.list
       ? `
+    display: flex;
     flex-direction: column;
   `
       : `
+    display: grid;
+    gap: ${theme.spacing.mobile[100]} 0px;
+    grid-template-columns: repeat(2, 2fr);
+    grid-template-rows: 2fr;
     justify-content: space-evenly;
       `}
   align-items: flex-start;
   ${MEDIA_QUERIES.medium} {
+    display: flex;
     padding: ${theme.spacing.desktop[100]} ${theme.spacing.desktop[600]};
   }
 `;

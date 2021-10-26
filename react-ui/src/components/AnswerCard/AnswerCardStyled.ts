@@ -1,5 +1,6 @@
 import { colours } from "./../../constants/styles";
 import styled from "styled-components";
+import { MEDIA_QUERIES, theme } from "@homex/hx-component-library";
 
 interface IAnswerCardProps {
   isSelected: boolean;
@@ -11,9 +12,13 @@ export const AnswerCardContainer = styled.div<IAnswerCardProps>`
   flex-direction: column;
   margin-right: 10px;
   border-radius: 4px;
-  width: 162px;
+  width: 139.5px;
   border: 1px solid
     ${({ isSelected }) => (isSelected ? colours.prime600 : colours.tertiary200)};
+
+  ${MEDIA_QUERIES.medium}{
+    width: 162px;
+  }
 
   :last-child {
     margin-right: 0px;
@@ -21,8 +26,12 @@ export const AnswerCardContainer = styled.div<IAnswerCardProps>`
 `;
 
 export const AnswerCardImageContainer = styled.div`
-  height: 126px;
+  height: 108.5px;
   width: 100%;
+
+  ${MEDIA_QUERIES.medium}{
+    height: 126px;
+  }
 
   img {
     width: 100%;
@@ -31,11 +40,15 @@ export const AnswerCardImageContainer = styled.div`
 `;
 
 export const AnswerCardTextContainer = styled.div<IAnswerCardProps>`
-  padding: 14px;
+  padding: 10px;
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: ${({ isSelected }) =>
     isSelected ? colours.prime600 : colours.transparent};
+
+  ${MEDIA_QUERIES.medium}{
+    padding: 14px;
+  }
 `;
