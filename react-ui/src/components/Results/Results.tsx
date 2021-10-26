@@ -12,6 +12,7 @@ import CharacteristicCard, {
 } from "../CharacteristicCard/CharacteristicCard";
 import {
   AvatarImageContainer,
+  AvatarImageContainerMobile,
   CharacteristicsContainer,
   EmailContainer,
   EmailInputContainer,
@@ -21,6 +22,7 @@ import {
   ResultsContent,
   ResultsHeader,
   ResutlsPage,
+  SubmitButtonStyled,
 } from "./ResultsStyled";
 
 interface IResultsProps {
@@ -36,6 +38,7 @@ import BossGraphic from "../../assets/BossGraphic.svg";
 import PondererGraphic from "../../assets/PondererGraphic.svg";
 import GrassLeft from "../../assets/GrassLeft.svg";
 import getSessionData from "../../api/getSessionData";
+import { IsMediumAndAbove, IsMediumAndBelow } from "../shared/media";
 
 const strings = {
   diyerHeader: "You're the DIYer!",
@@ -119,6 +122,11 @@ const Results = (props: IResultsProps): JSX.Element => {
 
   return (
     <ResutlsPage>
+      <IsMediumAndBelow>
+        <AvatarImageContainerMobile type={resultArchetype}>
+          <img src={getGraphic()} alt={"diyer"} />
+        </AvatarImageContainerMobile>
+      </IsMediumAndBelow>
       <ResultsContent>
         <ResultsHeader>
           <Heading
@@ -128,14 +136,26 @@ const Results = (props: IResultsProps): JSX.Element => {
           >
             {headerText}
           </Heading>
-          <Paragraph
-            $fontColor={colours.black}
-            $textAlign="center"
-            $fontWeight="light"
-            $fontSize="s"
-          >
-            {bodyText}
-          </Paragraph>
+          <IsMediumAndAbove>
+            <Paragraph
+              $fontColor={colours.black}
+              $textAlign="center"
+              $fontWeight="light"
+              $fontSize="s"
+            >
+              {bodyText}
+            </Paragraph>
+          </IsMediumAndAbove>
+          <IsMediumAndBelow>
+            <Paragraph
+              $fontColor={colours.black}
+              $textAlign="center"
+              $fontWeight="light"
+              $fontSize="xxs"
+            >
+              {bodyText}
+            </Paragraph>
+          </IsMediumAndBelow>
         </ResultsHeader>
 
         <CharacteristicsContainer>
@@ -168,13 +188,14 @@ const Results = (props: IResultsProps): JSX.Element => {
               value={emailInput}
               onChange={(e) => console.log(e)}
             />
-            <SecondaryButton btnSize="xs">Submit</SecondaryButton>
+            <SubmitButtonStyled>Submit</SubmitButtonStyled>
           </EmailInputContainer>
         </EmailContainer>
-
-        <AvatarImageContainer type={resultArchetype}>
-          <img src={getGraphic()} alt={"diyer"} />
-        </AvatarImageContainer>
+        <IsMediumAndAbove>
+          <AvatarImageContainer type={resultArchetype}>
+            <img src={getGraphic()} alt={"diyer"} />
+          </AvatarImageContainer>
+        </IsMediumAndAbove>
       </ResultsContent>
       <GrassFooterContainer>
         <GrassInner>
