@@ -1,7 +1,6 @@
 import { MEDIA_QUERIES, PrimaryButton, Subheading, theme} from "@homex/hx-component-library";
 import styled from "styled-components";
 import { QuestionType } from "../../interfaces/quiz";
-import AnswerCard from "../AnswerCard/AnswerCard";
 
 export const IntroPage = styled.div``;
 
@@ -22,7 +21,10 @@ export const QuizContent = styled.div`
 `;
 
 export const QuizHeaderContainer = styled.div`
-  padding: 18px 40px;
+  padding: ${theme.spacing.mobile[100]} ${theme.spacing.mobile[200]};
+  ${MEDIA_QUERIES.medium}{
+    padding: 18px 40px;
+  }
 `;
 
 interface IQuizMainContainerProps {
