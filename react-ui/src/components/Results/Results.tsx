@@ -2,7 +2,6 @@ import {
   Heading,
   Input,
   Paragraph,
-  SecondaryButton,
 } from "@homex/hx-component-library";
 import React, { useEffect, useState } from "react";
 import { colours } from "../../constants/styles";
@@ -16,6 +15,7 @@ import {
   CharacteristicsContainer,
   EmailContainer,
   EmailInputContainer,
+  EmailInputStyled,
   GrassFooterContainer,
   GrassImageContainer,
   GrassInner,
@@ -182,7 +182,7 @@ const Results = (props: IResultsProps): JSX.Element => {
           </Paragraph>
 
           <EmailInputContainer>
-            <Input
+            <EmailInputStyled
               inputSize="sm"
               placeholder={strings.enterEmail}
               value={emailInput}

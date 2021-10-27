@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { colours } from "../../constants/styles";
 import { Archetype } from "../../interfaces/quiz";
 import { Page } from "../genericsStyled";
-import { MEDIA_QUERIES, SecondaryButton, theme } from "@homex/hx-component-library";
+import { Input, MEDIA_QUERIES, SecondaryButton, theme } from "@homex/hx-component-library";
 
 export const ResutlsPage = styled(Page)`
   position: relative;
@@ -79,6 +79,13 @@ export const EmailInputContainer = styled.div`
   ${MEDIA_QUERIES.medium}{
     flex-direction: row;
     margin-top: 36px;
+  }
+`;
+
+export const EmailInputStyled = styled(Input)`
+  padding: 0.5rem 0.3rem;
+  ${MEDIA_QUERIES.medium}{
+    padding: 1px 2px;
   }
 `;
 
