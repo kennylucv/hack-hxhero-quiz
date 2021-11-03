@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { IAnswer, IQuizData, QuestionType } from "../../interfaces/quiz";
 import { Page } from "../genericsStyled";
-import { CloudLeftContainer, CloudRightContainer } from "../Intro/IntroStyled";
+import { CloudLeftContainer, CloudRightDesktopContainer } from "../Intro/IntroStyled";
 
 import CloudLeft from "../../assets/CloudLeft.svg";
 import CloudRight from "../../assets/CloudRight.svg";
 import GraphicFooter from "../GraphicFooter/GraphicFooter";
 import {
+  PrimaryButtonStyled,
   QuizContent,
   QuizFooterContainer,
   QuizHeaderContainer,
@@ -136,30 +137,30 @@ const Quiz = (props: IIntroProps): JSX.Element => {
           })}
         </QuizMainContainer>
         <QuizFooterContainer>
-          <PrimaryButton
+          <PrimaryButtonStyled
             disabled={questionIndex === 0}
             btnSize="xs"
             btnType="outline"
             onClick={() => setQuestionIndex(questionIndex - 1)}
           >
             {strings.buttonBack}
-          </PrimaryButton>
-          <PrimaryButton
+          </PrimaryButtonStyled>
+          <PrimaryButtonStyled
             btnSize="xs"
             btnType="solid"
             onClick={onClickNext}
             disabled={!selectedAnswer}
           >
             {strings.buttonNext}
-          </PrimaryButton>
+          </PrimaryButtonStyled>
         </QuizFooterContainer>
       </QuizContent>
       <CloudLeftContainer>
         <img src={CloudLeft} alt="CloudLeft" />
       </CloudLeftContainer>
-      <CloudRightContainer>
+      <CloudRightDesktopContainer>
         <img src={CloudRight} alt="CloudRight" />
-      </CloudRightContainer>
+      </CloudRightDesktopContainer>
       <GraphicFooter />
     </Page>
   );

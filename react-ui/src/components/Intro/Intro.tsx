@@ -3,13 +3,16 @@ import React from "react";
 import { colours } from "../../constants/styles";
 import {
   CloudLeftContainer,
-  CloudRightContainer,
+  CloudRightDesktopContainer,
+  CloudRightMobileContainer,
   IntroContent,
   SubHeadingStyled,
 } from "./IntroStyled";
+import { IsMediumAndAbove, IsMediumAndBelow } from "../shared/media";
 
 import CloudLeft from "../../assets/CloudLeft.svg";
 import CloudRight from "../../assets/CloudRight.svg";
+import CloudRightMobile from "../../assets/CloudRightMobile.svg";
 import { Page } from "../genericsStyled";
 import GraphicFooter from "../GraphicFooter/GraphicFooter";
 
@@ -27,27 +30,53 @@ const strings = {
 const Intro = (props: IIntroProps): JSX.Element => {
   return (
     <Page>
-      <IntroContent>
-        <Heading $fontColor={colours.prime600} $textAlign="center">
-          {strings.headerText}
-        </Heading>
-        <SubHeadingStyled
-          $fontColor={colours.black}
-          $fontSize="s"
-          $textAlign="center"
-        >
-          {strings.bodyText}
-        </SubHeadingStyled>
-        <PrimaryButton btnSize="m" btnType="solid" onClick={props.onClickStart}>
-          {strings.ctaText}
-        </PrimaryButton>
-      </IntroContent>
+      <IsMediumAndAbove>
+        <IntroContent>
+          <Heading $fontColor={colours.prime600} $textAlign="center">
+            {strings.headerText}
+          </Heading>
+          <SubHeadingStyled
+            $fontColor={colours.black}
+            $fontSize="s"
+            $textAlign="center"
+          >
+            {strings.bodyText}
+          </SubHeadingStyled>
+          <PrimaryButton btnSize="m" btnType="solid" onClick={props.onClickStart}>
+            {strings.ctaText}
+          </PrimaryButton>
+        </IntroContent>
+      </IsMediumAndAbove>
+      <IsMediumAndBelow>
+        <IntroContent>
+          <Heading $fontColor={colours.prime600} $fontSize='m' $textAlign="center">
+              {strings.headerText}
+            </Heading>
+            <SubHeadingStyled
+              $fontColor={colours.black}
+              $fontSize="xxs"
+              $textAlign="center"
+            >
+              {strings.bodyText}
+            </SubHeadingStyled>
+            <PrimaryButton btnSize="xs" btnType="solid" onClick={props.onClickStart}>
+              {strings.ctaText}
+            </PrimaryButton>
+        </IntroContent>
+      </IsMediumAndBelow>
       <CloudLeftContainer>
         <img src={CloudLeft} alt="CloudLeft" />
       </CloudLeftContainer>
-      <CloudRightContainer>
-        <img src={CloudRight} alt="CloudRight" />
-      </CloudRightContainer>
+      <IsMediumAndAbove>
+        <CloudRightDesktopContainer>
+          <img src={CloudRight} alt="CloudRight" />
+        </CloudRightDesktopContainer>
+      </IsMediumAndAbove>
+      <IsMediumAndBelow>
+        <CloudRightMobileContainer>
+          <img src={CloudRightMobile} alt="CloudRight" />
+        </CloudRightMobileContainer>
+      </IsMediumAndBelow>
       <GraphicFooter />
     </Page>
   );
