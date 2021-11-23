@@ -39,6 +39,7 @@ import PondererGraphic from "../../assets/PondererGraphic.svg";
 import GrassLeft from "../../assets/GrassLeft.svg";
 import getSessionData from "../../api/getSessionData";
 import { IsMediumAndAbove, IsMediumAndBelow } from "../shared/media";
+import submitEmail from "../../api/submitEmail";
 
 const strings = {
   diyerHeader: "You're the DIYer!",
@@ -183,12 +184,13 @@ const Results = (props: IResultsProps): JSX.Element => {
 
           <EmailInputContainer>
             <EmailInputStyled
+              id='emailInput'
               inputSize="sm"
               placeholder={strings.enterEmail}
-              value={emailInput}
-              onChange={(e) => console.log(e)}
+              // value={emailInput}
+              // onChange={(e) => console.log(e.nativeEvent)}
             />
-            <SubmitButtonStyled>Submit</SubmitButtonStyled>
+            <SubmitButtonStyled onClick={() => submitEmail(props.sessionId)}>Submit</SubmitButtonStyled>
           </EmailInputContainer>
         </EmailContainer>
         <IsMediumAndAbove>
@@ -199,10 +201,10 @@ const Results = (props: IResultsProps): JSX.Element => {
       </ResultsContent>
       <GrassFooterContainer>
         <GrassInner>
-          <GrassImageContainer position="left" onClick={props.showDashboard}>
+          <GrassImageContainer position="left" >
             <img src={GrassLeft} alt={"grass"} />
           </GrassImageContainer>
-          <GrassImageContainer position="right" onClick={props.showDashboard}>
+          <GrassImageContainer position="right" >
             <img src={GrassLeft} alt={"grass"} />
           </GrassImageContainer>
         </GrassInner>
