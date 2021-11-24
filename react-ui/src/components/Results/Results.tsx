@@ -183,16 +183,6 @@ const Results = (props: IResultsProps): JSX.Element => {
           >
             {strings.emailBody}
           </Paragraph>
-          {clickedSubmit
-            ? <Paragraph
-              $fontColor={colours.darkRed}
-              $textAlign="center"
-              $fontSize="s"
-            >
-              {strings.emailNotImplemented}
-            </Paragraph>
-            : <></>
-          }
           <EmailInputContainer>
             <EmailInputStyled
               id='emailInput'
@@ -208,6 +198,16 @@ const Results = (props: IResultsProps): JSX.Element => {
               }
               }>Submit</SubmitButtonStyled>
           </EmailInputContainer>
+          {clickedSubmit
+            ? <Paragraph
+              $fontColor={colours.darkRed}
+              $textAlign="center"
+              $fontSize="s"
+            >
+              {strings.emailNotImplemented}
+            </Paragraph>
+            : <></>
+          }
         </EmailContainer>
         <IsMediumAndAbove>
           <AvatarImageContainer type={resultArchetype}>
