@@ -87,6 +87,33 @@ const App = () => {
       
     };
 
+    const submitEmail = async (req, res) => {
+      res.set('Content-Type', 'application/json');
+
+      const sessionId = req.body.sessionId;
+
+      if (!sessionId) {
+        res.send("Error, sessionId required!");
+      }
+
+      const email = req.body.email
+      console.log('Submitted email.')
+
+      SessionResults.findByIdAndUpdate(
+        sessionId,
+        {
+          $set: {
+            email: email
+          }
+        },
+        {},
+        (err, doc) => {
+          res.json(doc);
+        } 
+      )
+      
+    };
+
     const importQuestions = async (req, res) => {
       res.set('Content-Type', 'application/json');
 
@@ -252,6 +279,7 @@ const App = () => {
 
     // PUT
     app.put('/api/submit-answers', jsonParser, submitAnswers);
+    app.put('/api/submit-email', jsonParser, submitEmail)
 
     // GET
     app.get('/api/questions', getQuestions);

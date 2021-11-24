@@ -39,6 +39,7 @@ import PondererGraphic from "../../assets/PondererGraphic.svg";
 import GrassLeft from "../../assets/GrassLeft.svg";
 import getSessionData from "../../api/getSessionData";
 import { IsMediumAndAbove, IsMediumAndBelow } from "../shared/media";
+import submitEmail from "../../api/submitEmail";
 
 const strings = {
   diyerHeader: "You're the DIYer!",
@@ -57,10 +58,12 @@ const strings = {
   emailBody:
     "We’ll send an email with more details about your type and some tips and tricks for managing your home!",
   enterEmail: "Enter your email address *",
+  emailNotImplemented: "Thanks — this feature isn't ready yet, but we're working on it.",
 };
 
 const Results = (props: IResultsProps): JSX.Element => {
   const [emailInput, setEmailInput] = useState("");
+  const [clickedSubmit, setClickedSubmit] = useState(false);
   const [resultArchetype, setResultArchtype] = useState<Archetype | undefined>(
     undefined
   );
@@ -180,16 +183,31 @@ const Results = (props: IResultsProps): JSX.Element => {
           >
             {strings.emailBody}
           </Paragraph>
-
           <EmailInputContainer>
             <EmailInputStyled
+              id='emailInput'
               inputSize="sm"
               placeholder={strings.enterEmail}
-              value={emailInput}
-              onChange={(e) => console.log(e)}
+              // value={emailInput}
+              // onChange={(e) => console.log(e.nativeEvent)}
             />
-            <SubmitButtonStyled>Submit</SubmitButtonStyled>
+            <SubmitButtonStyled 
+              onClick={() => {
+                setClickedSubmit(true); 
+                submitEmail(props.sessionId);
+              }
+              }>Submit</SubmitButtonStyled>
           </EmailInputContainer>
+          {clickedSubmit
+            ? <Paragraph
+              $fontColor={colours.darkRed}
+              $textAlign="center"
+              $fontSize="s"
+            >
+              {strings.emailNotImplemented}
+            </Paragraph>
+            : <></>
+          }
         </EmailContainer>
         <IsMediumAndAbove>
           <AvatarImageContainer type={resultArchetype}>
@@ -199,10 +217,10 @@ const Results = (props: IResultsProps): JSX.Element => {
       </ResultsContent>
       <GrassFooterContainer>
         <GrassInner>
-          <GrassImageContainer position="left" onClick={props.showDashboard}>
+          <GrassImageContainer position="left" >
             <img src={GrassLeft} alt={"grass"} />
           </GrassImageContainer>
-          <GrassImageContainer position="right" onClick={props.showDashboard}>
+          <GrassImageContainer position="right" >
             <img src={GrassLeft} alt={"grass"} />
           </GrassImageContainer>
         </GrassInner>
