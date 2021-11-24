@@ -10,5 +10,6 @@ export const colours = {
   tertiary200: "#D4EEF5",
   tertiary600: "#1A3F6C",
   common100: "#FFFFFF",
+  darkRed: "#f76565",
   transparent: "transparent",
 };

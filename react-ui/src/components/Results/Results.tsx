@@ -58,10 +58,12 @@ const strings = {
   emailBody:
     "We’ll send an email with more details about your type and some tips and tricks for managing your home!",
   enterEmail: "Enter your email address *",
+  emailNotImplemented: "Thanks — this feature isn't ready yet, but we're working on it.",
 };
 
 const Results = (props: IResultsProps): JSX.Element => {
   const [emailInput, setEmailInput] = useState("");
+  const [clickedSubmit, setClickedSubmit] = useState(false);
   const [resultArchetype, setResultArchtype] = useState<Archetype | undefined>(
     undefined
   );
@@ -181,7 +183,16 @@ const Results = (props: IResultsProps): JSX.Element => {
           >
             {strings.emailBody}
           </Paragraph>
-
+          {clickedSubmit
+            ? <Paragraph
+              $fontColor={colours.darkRed}
+              $textAlign="center"
+              $fontSize="s"
+            >
+              {strings.emailNotImplemented}
+            </Paragraph>
+            : <></>
+          }
           <EmailInputContainer>
             <EmailInputStyled
               id='emailInput'
@@ -190,7 +201,12 @@ const Results = (props: IResultsProps): JSX.Element => {
               // value={emailInput}
               // onChange={(e) => console.log(e.nativeEvent)}
             />
-            <SubmitButtonStyled onClick={() => submitEmail(props.sessionId)}>Submit</SubmitButtonStyled>
+            <SubmitButtonStyled 
+              onClick={() => {
+                setClickedSubmit(true); 
+                submitEmail(props.sessionId);
+              }
+              }>Submit</SubmitButtonStyled>
           </EmailInputContainer>
         </EmailContainer>
         <IsMediumAndAbove>
