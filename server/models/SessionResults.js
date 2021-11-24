@@ -9,6 +9,7 @@ const SessionResultsSchema = new Schema({
     answerId: String,
   }],
   email: String,
+  referralUrl: String,
   sessionId: String,
   archetype: String,
   scores: {
