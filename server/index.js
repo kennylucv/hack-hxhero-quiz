@@ -44,6 +44,7 @@ const App = () => {
 
       const newSession = new SessionResults({
         createdAt: new Date(),
+        referralUrl: req.body.referralUrl ?? '',
       })
 
       newSession.save(function (error, document) {
@@ -274,7 +275,7 @@ const App = () => {
 
     // POSTS
     app.post('/api/import-questions', jsonParser, importQuestions);
-    app.post('/api/start-session', startSession)
+    app.post('/api/start-session', jsonParser, startSession)
     app.post('/api/get-answer-percent', jsonParser, getAnswerPercent)
 
     // PUT

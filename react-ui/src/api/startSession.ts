@@ -6,9 +6,12 @@ const startSession = async (): Promise<IStartSessionResponse | undefined> => {
   const headers = {
     "Content-Type": "application/json",
   };
+  const body = JSON.stringify({
+    referralUrl: window.location.href
+  });
   try {
     const res = (await (
-      await fetch(url, { method, headers })
+      await fetch(url, { body, method, headers })
     ).json()) as IStartSessionResponse;
     console.log("res", res);
     return res;
