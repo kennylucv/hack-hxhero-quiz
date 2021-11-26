@@ -45,6 +45,7 @@ const App = () => {
       const newSession = new SessionResults({
         createdAt: new Date(),
         referralUrl: req.body.referralUrl ?? '',
+        userIP: typeof req.ip === 'string' ? req.ip : '',
       })
 
       newSession.save(function (error, document) {
